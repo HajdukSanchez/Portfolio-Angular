@@ -39,17 +39,19 @@
         </path>
       </svg>
     </div>
-    <p>In a few moments you will see the content</p>
+    <p>In few seconds you will see the content</p>
   </div>
 
-  <div class="ae-masonry ae-masonry-md-2 ae-masonry-xl-4" *ngIf="!_product.charged">
+  <div
+    class="ae-masonry ae-masonry-md-2 ae-masonry-xl-4"
+    *ngIf="!_product.charged"
+  >
     <a
       *ngFor="let aux of _product.products"
-      routerLink="/item"
       class="rk-item ae-masonry__item"
     >
-      <img src="assets/productos/{{ aux.url }}.jpg" alt="{{ aux.url }}" />
-      <div class="item-meta">
+      <img src="assets/productos/{{ aux.url }}.jpg" alt="{{ aux.url }}" [routerLink]="['/item', aux.cod]"/>
+      <div class="item-meta" [routerLink]="['/item', aux.cod]">
         <h2>{{ aux.titulo }}</h2>
         <p>{{ aux.categoria }}</p>
       </div>
