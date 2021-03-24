@@ -7,14 +7,29 @@ import { InfoPage } from '../interfaces/info-pagina.interface';
 })
 export class InfoPaginaService {
 
-  public info: InfoPage = {}; // Objeto al que accederan las clases que incluyan este servicio
+  public info: InfoPage = {}; // Datos globales del sistema
+  public team?: any[]; // Datos del equipo de trabajo
   private charged: boolean = false;
 
   constructor(private http: HttpClient) {
+    this.loadInfo();
+    this.loadTeam();
+  }
+
+  private loadInfo() {
     // Reading Service
-    this.http.get('assets/data/data-page.json').subscribe((resp: InfoPage) => {
-      this.charged = true;
-      this.info = resp;
-    })
+    this.http.get('assets/data/data-page.json')
+      .subscribe((resp: InfoPage) => {
+        this.charged = true;
+        this.info = resp;
+      })
+  }
+
+  private loadTeam() {
+    this.http.get('https://angular-udemy-jhs-default-rtdb.firebaseio.com/equipo.json')
+      .subscribe((resp: any) => {
+        // console.log(resp);
+        this.team = resp;
+      })
   }
 }
